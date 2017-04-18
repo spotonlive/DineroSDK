@@ -11,7 +11,7 @@ class Contacts extends AbstractResource
 {
     /**
      * Create a new contact
-     * 
+     *
      * @param Contact $contact
      * @return Contact
      * @throws DineroMissingParameterException
@@ -47,19 +47,27 @@ class Contacts extends AbstractResource
      * @param array $filterValues
      * @return array
      */
-    public function find(array $filterValues)
+    public function find(array $filterValues = [])
     {
-        if (isset($filterValues['IsPerson'])) {
-            $filterValues['IsPerson'] = ($filterValues['IsPerson']) ? 'true' : 'false';
-        }
-
         $path = sprintf('/%s/contacts', $this->dinero->getOrganizationId());
 
-        $filter = [];
-        foreach ($filterValues as $property => $value) {
-            $filter[] = $property . " " . "eq" . " " . "'" . $value . "'";
+        $options = [];
+
+        if (count($filterValues)) {
+            if (isset($filterValues['IsPerson'])) {
+                $filterValues['IsPerson'] = ($filterValues['IsPerson']) ? 'true' : 'false';
+            }
+
+            $filter = [];
+
+            foreach ($filterValues as $property => $value) {
+                $filter[] = $property . " " . "eq" . " " . "'" . $value . "'";
+            }
+
+            $filter = implode(";", $filter);
+
+            $options['queryFilter'] = $filter;
         }
-        $filter = implode(";", $filter);
 
         $fields = [
             'Name',
@@ -77,16 +85,16 @@ class Contacts extends AbstractResource
             'VatNumber',
             'EanNumber',
             'PaymentConditionType',
-            'PaymentConditionNumberOfDays'
+            'PaymentConditionNumberOfDays',
+            'UpdatedAt'
         ];
+
+        $options['fields'] = implode(",", $fields);
 
         $endpoint = sprintf(
             '%s?%s',
             $path,
-            http_build_query([
-                'queryFilter' => $filter,
-                'fields' => implode(",", $fields)
-            ])
+            http_build_query($options)
         );
 
         $result = $this->dinero->send($endpoint, 'get', '');
