@@ -48,9 +48,9 @@ class Contact
     public $Street;
 
     /**
-     * @var string
+     * @var string|null
      */
-    public $ZipCode;
+    public $Zipcode;
 
     /**
      * @var string
@@ -204,19 +204,19 @@ class Contact
     }
 
     /**
-     * @return string
+     * @return null|string
      */
-    public function getZipCode()
+    public function getZipcode()
     {
-        return $this->ZipCode;
+        return $this->Zipcode;
     }
 
     /**
-     * @param string $ZipCode
+     * @param null|string $Zipcode
      */
-    public function setZipCode($ZipCode)
+    public function setZipcode($Zipcode)
     {
-        $this->ZipCode = $ZipCode;
+        $this->Zipcode = $Zipcode;
     }
 
     /**

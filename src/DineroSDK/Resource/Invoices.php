@@ -71,10 +71,11 @@ class Invoices extends AbstractResource
             }
         }
 
-        $hydrator = new ObjectProperty();
+        $hydrator = $this->createHydrator(Invoice::class);
         $invoiceArray = $hydrator->extract($invoice);
 
         $invoiceLines = [];
+
         foreach ($invoice->getProductLines() as $productLine) {
             if (!$productLine->getUnit()) {
                 throw new DineroMissingParameterException('InvoiceLine requires an \'Unit\'');
@@ -112,7 +113,7 @@ class Invoices extends AbstractResource
 
     /**
      * Send invoice email
-     * 
+     *
      * @param string $invoiceGuid
      * @param array $settings
      */

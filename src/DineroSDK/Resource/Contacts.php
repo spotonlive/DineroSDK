@@ -4,6 +4,7 @@ namespace DineroSDK\Resource;
 
 use DineroSDK\Entity\Contact;
 use DineroSDK\Exception\DineroMissingParameterException;
+use GeneratedHydrator\Configuration;
 use Zend\Hydrator\ClassMethods;
 use Zend\Hydrator\ObjectProperty;
 
@@ -103,12 +104,10 @@ class Contacts extends AbstractResource
 
         $contacts = [];
 
-        $hydrator = new ClassMethods();
+        $hydrator = $this->createHydrator(Contact::class);
 
         foreach ($dineroContacts as $dineroContact) {
             $contact = new Contact($dineroContact['ContactGuid']);
-
-            unset($dineroContact['ContactGuid']);
 
             $hydrator->hydrate($dineroContact, $contact);
 
