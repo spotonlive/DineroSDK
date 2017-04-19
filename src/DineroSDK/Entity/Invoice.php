@@ -118,7 +118,7 @@ class Invoice
     }
 
     /**
-     * @param string $Guid
+     * @param string $guid
      */
     public function setGuid($guid)
     {

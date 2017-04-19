@@ -62,7 +62,7 @@ class Contacts extends AbstractResource
             $filter = [];
 
             foreach ($filterValues as $property => $value) {
-                $filter[] = $property . " " . "eq" . " " . "'" . $value . "'";
+                $filter[] = sprintf('%s eq \'%s\'', $property, $value);
             }
 
             $filter = implode(";", $filter);

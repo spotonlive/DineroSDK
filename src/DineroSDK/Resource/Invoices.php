@@ -4,6 +4,7 @@ namespace DineroSDK\Resource;
 
 use DineroSDK\Entity\Contact;
 use DineroSDK\Entity\Invoice;
+use DineroSDK\Entity\InvoiceCompressed;
 use DineroSDK\Exception\DineroException;
 use DineroSDK\Exception\DineroMissingParameterException;
 use Zend\Hydrator\ClassMethods;
@@ -11,6 +12,8 @@ use Zend\Hydrator\ObjectProperty;
 
 class Invoices extends AbstractResource
 {
+
+
     /**
      * If $contact is supplied, the SDK will first search for the contact in Dinero
      * and if it doesn't exist it will create it
@@ -109,6 +112,76 @@ class Invoices extends AbstractResource
         }
 
         return $invoice->withGuid($result['Guid']);
+    }
+
+    /**
+     * Find a contact
+     *
+     * @param array $filterValues
+     * @return array|InvoiceCompressed[]
+     */
+    public function find(array $filterValues = [])
+    {
+        $path = sprintf('/%s/invoices', $this->dinero->getOrganizationId());
+
+        $options = [];
+
+        if (count($filterValues)) {
+            $filter = [];
+
+            foreach ($filterValues as $property => $value) {
+                $filter[] = sprintf('%s eq \'%s\'', $property, $value);
+            }
+
+            $filter = implode(";", $filter);
+
+            $options['queryFilter'] = $filter;
+        }
+
+        $fields = [
+            'Number',
+            'Guid,',
+            'ContactName',
+            'Date',
+            'PaymentDate',
+            'Description',
+            'Currency',
+            'Status',
+            'MailOutStatus',
+            'TotalExclVatInDkk',
+            'TotalInclVatInDkk',
+            'TotalExclVat',
+            'TotalInclVat',
+            'CreatedAt',
+            'UpdatedAt',
+            'DeletedAt'
+        ];
+
+        $options['fields'] = implode(",", $fields);
+
+        $endpoint = sprintf(
+            '%s?%s',
+            $path,
+            http_build_query($options)
+        );
+
+        $result = $this->dinero->send($endpoint, 'get', '');
+
+        $dineroInvoices = $result->getBody()['Collection'];
+
+        $invoices = [];
+
+        $hydrator = $this->createHydrator(InvoiceCompressed::class);
+
+        foreach ($dineroInvoices as $dineroInvoice) {
+            $invoice = new InvoiceCompressed($dineroInvoice['Guid']);
+
+            $hydrator->hydrate($dineroInvoice, $invoice);
+
+            $invoices[] = $invoice;
+        }
+
+        return $invoices;
     }
 
     /**
