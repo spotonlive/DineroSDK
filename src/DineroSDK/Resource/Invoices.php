@@ -139,17 +139,18 @@ class Invoices extends AbstractResource
         return $invoice->withGuid($result['Guid']);
     }
 
+    
+
     /**
      * Find a contact
      *
      * @param array $filterValues
+     * @param array $options
      * @return array|InvoiceCompressed[]
      */
-    public function find(array $filterValues = [])
+    public function find(array $filterValues = [], $options = [])
     {
         $path = sprintf('/%s/invoices', $this->dinero->getOrganizationId());
-
-        $options = [];
 
         if (count($filterValues)) {
             $filter = [];
