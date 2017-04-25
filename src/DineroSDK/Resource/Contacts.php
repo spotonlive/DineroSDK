@@ -5,8 +5,6 @@ namespace DineroSDK\Resource;
 use DineroSDK\Entity\Contact;
 use DineroSDK\Exception\DineroMissingParameterException;
 use GeneratedHydrator\Configuration;
-use Zend\Hydrator\ClassMethods;
-use Zend\Hydrator\ObjectProperty;
 
 class Contacts extends AbstractResource
 {
