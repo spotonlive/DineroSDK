@@ -46,13 +46,12 @@ class Contacts extends AbstractResource
      * Find a contact
      *
      * @param array $filterValues
+     * @param array $options
      * @return array
      */
-    public function find(array $filterValues = [])
+    public function find(array $filterValues = [], $options = [])
     {
         $path = sprintf('/%s/contacts', $this->dinero->getOrganizationId());
-
-        $options = [];
 
         if (count($filterValues)) {
             if (isset($filterValues['IsPerson'])) {
