@@ -7,8 +7,6 @@ use DineroSDK\Entity\Invoice;
 use DineroSDK\Entity\InvoiceCompressed;
 use DineroSDK\Exception\DineroException;
 use DineroSDK\Exception\DineroMissingParameterException;
-use Zend\Hydrator\ClassMethods;
-use Zend\Hydrator\ObjectProperty;
 
 class Invoices extends AbstractResource
 {
