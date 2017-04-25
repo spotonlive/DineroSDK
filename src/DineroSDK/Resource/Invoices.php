@@ -12,7 +12,32 @@ use Zend\Hydrator\ObjectProperty;
 
 class Invoices extends AbstractResource
 {
+    /**
+     * Find invoice by guid
+     *
+     * @param string $guid
+     * @return Invoice
+     */
+    public function findByGuid($guid)
+    {
+        $endpoint = sprintf(
+            '/%s/invoices/%s',
+            $this->dinero->getOrganizationId(),
+            $guid
+        );
 
+        $result = $this->dinero->send($endpoint, 'get', '');
+
+        $dineroInvoice = $result->getBody();
+
+        $hydrator = $this->createHydrator(Invoice::class);
+
+        $invoice = new Invoice($dineroInvoice['Guid']);
+
+        $hydrator->hydrate($dineroInvoice, $invoice);
+
+        return $invoice;
+    }
 
     /**
      * If $contact is supplied, the SDK will first search for the contact in Dinero
