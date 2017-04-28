@@ -4,7 +4,7 @@ namespace DineroSDK\Resource;
 
 use DineroSDK\Entity\Contact;
 use DineroSDK\Exception\DineroMissingParameterException;
-use GeneratedHydrator\Configuration;
+use Zend\Hydrator\ObjectProperty;
 
 class Contacts extends AbstractResource
 {
@@ -45,7 +45,7 @@ class Contacts extends AbstractResource
      *
      * @param array $filterValues
      * @param array $options
-     * @return array
+     * @return array|Contact[]
      */
     public function find(array $filterValues = [], $options = [])
     {
@@ -84,6 +84,7 @@ class Contacts extends AbstractResource
             'EanNumber',
             'PaymentConditionType',
             'PaymentConditionNumberOfDays',
+            'CreatedAt',
             'UpdatedAt'
         ];
 

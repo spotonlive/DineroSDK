@@ -119,6 +119,16 @@ class Contact
     public $IsPerson;
 
     /**
+     * @var string
+     */
+    public $CreatedAt = null;
+
+    /**
+     * @var string
+     */
+    public $UpdatedAt = null;
+
+    /**
      * Contact constructor.
      * @param string $contacGuid
      */
@@ -393,5 +403,37 @@ class Contact
     public function setIsPerson($IsPerson)
     {
         $this->IsPerson = (bool) $IsPerson;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCreatedAt()
+    {
+        return $this->CreatedAt;
+    }
+
+    /**
+     * @param string $CreatedAt
+     */
+    public function setCreatedAt($CreatedAt)
+    {
+        $this->CreatedAt = $CreatedAt;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUpdatedAt()
+    {
+        return $this->UpdatedAt;
+    }
+
+    /**
+     * @param string $UpdatedAt
+     */
+    public function setUpdatedAt($UpdatedAt)
+    {
+        $this->UpdatedAt = $UpdatedAt;
     }
 }

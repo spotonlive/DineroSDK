@@ -7,6 +7,8 @@ use DineroSDK\Entity\Invoice;
 use DineroSDK\Entity\InvoiceCompressed;
 use DineroSDK\Exception\DineroException;
 use DineroSDK\Exception\DineroMissingParameterException;
+use Zend\Hydrator\ClassMethods;
+use Zend\Hydrator\ObjectProperty;
 
 class Invoices extends AbstractResource
 {
@@ -136,8 +138,6 @@ class Invoices extends AbstractResource
 
         return $invoice->withGuid($result['Guid']);
     }
-
-    
 
     /**
      * Find a contact
