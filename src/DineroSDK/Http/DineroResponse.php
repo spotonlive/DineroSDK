@@ -24,7 +24,7 @@ class DineroResponse implements DineroResponseInterface
      * @var array
      */
     private $headers;
-    
+
     /**
      * @var array
      */
