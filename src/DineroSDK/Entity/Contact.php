@@ -19,7 +19,6 @@
 namespace DineroSDK\Entity;
 
 use DineroSDK\Exception\DineroException;
-use Doctrine\ORM\Mapping as ORM;
 
 class Contact
 {

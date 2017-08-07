@@ -27,6 +27,7 @@ use DineroSDK\Http\DineroResponse;
 use DineroSDK\HttpClient\HttpClientInterface;
 use DineroSDK\Resource\Contacts;
 use DineroSDK\Resource\Invoices;
+use DineroSDK\Resource\Organizations;
 use GuzzleHttp\Client;
 
 class Dinero
@@ -83,6 +84,7 @@ class Dinero
     public function __construct(array $config, HttpClientInterface $client = null)
     {
         $this->validateConfig($config);
+
         $this->clientId = $config['client_id'];
         $this->clientSecret = $config['client_secret'];
         $this->apiKey = $config['api_key'];
@@ -123,6 +125,16 @@ class Dinero
     }
 
     /**
+     * Invoices
+     *
+     * @return Organizations
+     */
+    public function organizations()
+    {
+        return new Organizations($this);
+    }
+
+    /**
      * @param array $config
      * @throws DineroMissingConfigException
      */
@@ -138,10 +150,6 @@ class Dinero
 
         if (!isset($config['api_key']) || empty($config['api_key'])) {
             throw new DineroMissingConfigException('Please specify \'api_key\' in your config file');
-        }
-
-        if (!isset($config['organization_id']) || empty($config['organization_id'])) {
-            throw new DineroMissingConfigException('Please specify \'organization_id\' in your config file');
         }
     }
 
