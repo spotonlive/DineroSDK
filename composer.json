@@ -22,7 +22,7 @@
   "require": {
     "php": "^7",
     "guzzlehttp/guzzle": "^6.1",
-    "ocramius/generated-hydrator": "~2.0"
+    "ocramius/generated-hydrator": "~2.3"
   },
   "autoload": {
     "psr-0": {
