@@ -20,7 +20,7 @@
     }
   },
   "require": {
-    "php": "^7",
+    "php": "^7|^8.0",
     "guzzlehttp/guzzle": "^6.1",
     "ocramius/generated-hydrator": "~2.0"
   },
