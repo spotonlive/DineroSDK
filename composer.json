@@ -21,7 +21,7 @@
   },
   "require": {
     "php": "^7",
-    "guzzlehttp/guzzle": "^6.1",
+    "guzzlehttp/guzzle": "^6 | ^7",
     "zendframework/zend-stdlib": "~2.0"
   },
   "autoload": {
